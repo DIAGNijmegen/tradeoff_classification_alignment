@@ -1,0 +1,88 @@
+experiment_name: coco
+output_dir: ""
+save_embeddings: False 
+resume_id: 
+data:
+  work_dir: ""
+  fold: 0
+  caption_column: 
+  train_path: 
+  val_path:  
+  test_path:
+debug: False
+
+num_classes: 80
+lambda_param: 1.0
+
+language: 
+  model_type: "sentenceRoBerta"
+
+vision:
+  model_type: "vit_base"
+  finetuned_vit_path: ''
+  freeze_lower_layers: True
+
+
+
+training:
+    num_epochs: 51
+    num_workers: 8
+    batch_size: 64
+    gradient_accumulation_steps: #8 
+    contrastive_loss: "clip"
+    classification_type: "multi" 
+    classification_loss: "bce"
+    topk: 
+      - 1
+      - 5
+      - 10
+    loss_options:
+        margin: 2.0
+  
+
+early_stopping:
+  enable: False 
+  patience: 10
+  metric: "classification loss"
+  min_epoch: 30
+  mode: "min"
+  save_all: False
+
+optimizers:
+  optim_vision:
+      enable: True
+      name: 'adamw'
+      lr: 0.0001 #1e-05
+      wd: 0.001
+      momentum: 
+      lr_scheduler:
+        name:  'step'
+        step_size: 5
+        gamma: 0.5
+
+
+  optim_language:
+    enable: False
+    name: "adamw"
+    lr: 
+    wd: 
+    lr_scheduler:
+      name: 
+      step_size: 
+      gamma: 
+
+
+wandb:
+  enable: True
+  project: 'contrastive_learning coco'
+  username: ''
+  exp_name: '${experiment_name}'
+  tags: 
+    - 
+  dir: '/home/user'
+  to_log:
+    - 'train': ['contrastive loss', 'classification loss', 'combined loss', 'auc','accuracy', 'mean cosine similarity', 'mAP','coco_mAP']
+    - 'validation': ['contrastive loss', 'classification loss', 'combined loss', 'auc','accuracy', 'mean cosine similarity', 'coco retrieval top_1','coco retrieval top_5','coco retrieval top_10','mAP','coco_mAP', 'cm']
+    - 'test': ['accuracy','auc', 'mean cosine similarity', 'retrieval accuracy','same label retrieval accuracy','coco retrieval top_1','coco retrieval top_5','coco retrieval top_10','mAP','coco_mAP']
+   
+  group:
