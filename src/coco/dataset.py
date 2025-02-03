@@ -9,7 +9,7 @@ from PIL import Image
 
 
 class ImageTextCOCO(Dataset):
-     """
+    """
     A PyTorch Dataset class for loading COCO image-text data with multi-label classification.
 
     Args:
