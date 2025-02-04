@@ -7,9 +7,8 @@ from pycocotools.coco import COCO
 from typing import List, Optional, Dict
 
 from src.coco.dataset import create_datasets
+from src.medical.dataset import create_medical_datasets
 from src.shared_utils import *
-
-
 import os
 
 import numpy as np
@@ -37,31 +36,29 @@ def load_data(language_model, cfg):
     test_dict = (
         load_json(cfg.data.test_path) if os.path.exists(cfg.data.test_path) else None
     )
-
     img_dir_train = os.path.join(data_dir, "train2017")
     img_dir_val = os.path.join(data_dir, "val2017")
 
     coco_train_instances = COCO(
-        os.path.join(data_dir, "annotations", "instances_train2017.json")
+            os.path.join(data_dir, "annotations", "instances_train2017.json")
     )
     coco_val_instances = COCO(
-        os.path.join(data_dir, "annotations", "instances_val2017.json")
+            os.path.join(data_dir, "annotations", "instances_val2017.json")
     )
 
     return create_datasets(
-        cfg,
-        coco_train_instances,
-        coco_val_instances,
-        train_dict,
-        val_dict,
-        test_dict,
-        img_dir_train,
-        img_dir_val,
-        tokenizer,
-        language_model,
-    )
-
-
+            cfg,
+            coco_train_instances,
+            coco_val_instances,
+            train_dict,
+            val_dict,
+            test_dict,
+            img_dir_train,
+            img_dir_val,
+            tokenizer,
+            language_model,
+        )
+  
 
 def load_coco_annotations(data_dir: Path):
     """

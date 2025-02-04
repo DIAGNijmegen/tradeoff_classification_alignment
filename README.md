@@ -61,26 +61,31 @@ python3 src/run.py --config-name coco data.fold=$fold lambda_param=$lambda data.
 🚧 **Under Construction** 🚧  
 
 ## Prerequisite
-This work uses a pretrained HIPT vision encoder that achieves state-of-the-art performance in multi-class ISUP grade classification with a quadratic kappa score of $0.892$ on the PANDA test set [1]. You can download the weights for this model: [here]
+We pretrained a Local H-ViT model, leveraging a frozen patch-level Transformer, while finetuning region-level and slide-level Transformers for multi-class ISUP Grade classification. 
+For implementation details, please refer to the [HIPT](https://github.com/clemsgrs/hipt) implementation. Train a single fold on the extracted features using the configuration in `config/hipt_train_panda.yaml.` The final model achieves state-of-the-art performance on the PANDA test set with a quadratic kappa score of $0.892$. 
 
-**1. Patch extraction**
+To use this model during contrastive tuning, you need to:
 
- You need to extract square regions from each WSI (patches) you intend to train on. To do so, in this work I used the package: [HS2P](https://github.com/clemsgrs/hs2p) [2] which segments tissue and extract relevant patches at a given pixel spacing.
+1. **Patch Extraction:** 
 
-**2. Feature extraction**
+    Extract $2048×2048$ patches from whole-slide images (WSIs) using [HS2P](https://github.com/clemsgrs/hs2p).
+    Patches are sampled at $0.5$ pixel spacing to capture relevant tissue regions.
+2. **Feature Extraction:** 
+    Use a pretrained model to extract local features for each WSI, stored as tensors of shape (M, 64, 384). (See [HIPT](https://github.com/clemsgrs/hipt) for details).
+3. **Adapt config file:**  
+   Download the pretrained HIPT model weights (LocalGlobalHIPT_2048_768.pt) and update the `config/medical.yaml`. Set `vision.model_weights` to the path where the weights are strored and `vision.local_features_dir` to the output directory for feature extraction. This enables the model to generate 768-dim slide-level embeddings for prostate slides.
 
-
-**3. Adapt config file**
-
-
-**4. Contrastive Tuning using single $\lambda$ on a single fold**
-
+## Run Contrastive Tuning using $\lambda$ on a single fold: 
+```bash
+python3 src/run.py --config-name medical
+```
 
 
 
 # References
-## References
+[1] C. Grisi, "Hierarchical Image Pyramid Transformer", Available at: [https://github.com/clemsgrs/hipt]https://github.com/clemsgrs/hipt)
 
-[1] C. Grisi, "HS2P: Histopathology Slide Pre-processing Pipeline", Available at: [https://github.com/clemsgrs/hs2p](https://github.com/clemsgrs/hs2p)
+[2] C. Grisi, "HS2P: Histopathology Slide Pre-processing Pipeline", Available at: [https://github.com/clemsgrs/hs2p](https://github.com/clemsgrs/hs2p)
 
-[2] C. Grisi, G. Litjens, and J. van der Laak, "Hierarchical Vision Transformers for Context-Aware Prostate Cancer Grading in Whole Slide Images," arXiv, December 2023. Available at: [https://arxiv.org/abs/2312.12619](https://arxiv.org/abs/2312.12619)
+<!-- 
+[2] C. Grisi, G. Litjens, and J. van der Laak, "Hierarchical Vision Transformers for Context-Aware Prostate Cancer Grading in Whole Slide Images," arXiv, December 2023. Available at: [https://arxiv.org/abs/2312.12619](https://arxiv.org/abs/2312.12619) -->

@@ -24,7 +24,7 @@ vision:
   model_type: "LocalGlobalRegressionHIPT"
   config: ""
   model_weights: "../models/LocalGlobalHIPT_2048_768.pt"
-  local_features_dir: ""
+  local_features_dir: "/path/to/local_features"
   
 
 
@@ -34,7 +34,6 @@ training:
     batch_size: 1
     gradient_accumulation_steps: 16
     contrastive_loss: "triplet"
-    classification_type: "single" #single or multi-label classification
     classification_loss: "mse"
     topk: 
       - 1

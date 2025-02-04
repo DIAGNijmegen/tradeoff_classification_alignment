@@ -1,9 +1,9 @@
 experiment_name: coco
-output_dir: ""
-save_embeddings: False 
+output_dir: "output/"
+
 resume_id: 
 data:
-  work_dir: ""
+  work_dir: "data/"
   fold: 0
   caption_column: 
   train_path: 
@@ -52,7 +52,7 @@ optimizers:
   optim_vision:
       enable: True
       name: 'adamw'
-      lr: 0.0001 #1e-05
+      lr: 0.0001 
       wd: 0.001
       momentum: 
       lr_scheduler:
@@ -81,8 +81,8 @@ wandb:
     - 
   dir: '/home/user'
   to_log:
-    - 'train': ['contrastive loss', 'classification loss', 'combined loss', 'auc','accuracy', 'mean cosine similarity', 'mAP','coco_mAP']
-    - 'validation': ['contrastive loss', 'classification loss', 'combined loss', 'auc','accuracy', 'mean cosine similarity', 'coco retrieval top_1','coco retrieval top_5','coco retrieval top_10','mAP','coco_mAP', 'cm']
-    - 'test': ['accuracy','auc', 'mean cosine similarity', 'retrieval accuracy','same label retrieval accuracy','coco retrieval top_1','coco retrieval top_5','coco retrieval top_10','mAP','coco_mAP']
+    - 'train': ['contrastive loss', 'classification loss', 'combined loss', 'auc','accuracy', 'mean cosine similarity', 'mAP']
+    - 'validation': ['contrastive loss', 'classification loss', 'combined loss', 'auc','accuracy', 'mean cosine similarity', 'coco retrieval top_1','coco retrieval top_5','coco retrieval top_10','mAP', 'cm']
+    - 'test': ['accuracy','auc', 'mean cosine similarity', 'retrieval accuracy','same label retrieval accuracy','coco retrieval top_1','coco retrieval top_5','coco retrieval top_10','mAP']
    
   group:
