@@ -1,7 +1,7 @@
 
 # A Balancing Act: Optimizing Classification and Retrieval in Cross-Modal Vision Models
 
-This repository includes the implementation of a simple, yet effective method to balance classification and contrastive objectives in general computer vision and computational Pathology. The paper is currently under review at MIDL 2025.
+This repository includes the implementation of a simple, yet effective method to balance classification and contrastive objectives in general computer vision and computational Pathology. This paper was accepted in the full paper track at MIDL 2025.
 
 
 ## Abstract
