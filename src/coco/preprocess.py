@@ -121,8 +121,8 @@ if __name__ == "__main__":
     - This dataset is stored under /data/contrastive_learning/
     """
 
-    image_dir = '/data/bodyct/experiments/judith/data/coco'
-    base_dir = '/data/bodyct/experiments/judith/classification-alignment-tradeoff/data/'
+    image_dir = '/path/to/image/directory'  # Replace with the actual path to the COCO images directory
+    base_dir = './data/'
     seed = 42
     save_dir_contrastive_tuning = Path(base_dir) / 'contrastive_tuning'
     save_dir_vison = Path(base_dir) / 'vision_encoder_finetuning'
