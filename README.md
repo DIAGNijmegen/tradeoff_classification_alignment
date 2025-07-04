@@ -3,6 +3,8 @@
 
 This repository includes the implementation of a simple, yet effective method to balance classification and contrastive objectives in general computer vision and computational Pathology. This paper was accepted in the full paper track at MIDL 2025.
 
+## Paper
+[[openreview]](https://openreview.net/forum?id=dAfbmDPeJL#discussion) [[pdf]](https://openreview.net/pdf?id=dAfbmDPeJL)
 
 ## Abstract
 Despite the promising capabilities of vision-language models (VLMs) in diverse tasks, recent studies reveal that they struggle with the fundamental task of image classification. In this study, we explore leveraging state-of-the-art task-specific classification models as a foundation for VLMs, aiming to preserve strong classification performance. Specifically, we assess the impact of contrastive tuning to enable cross-modal retrieval capabilities on a Vision Transformer (ViT) model trained for multi-label classification on natural images and a Hierarchical Vision Transformer (H-ViT) trained for prostate cancer grading in Whole-Slide Images (WSIs). Our results demonstrate that contrastive fine-tuning creates a clear trade-off: classification accuracy rapidly deteriorates toward zero as vision-text alignment improves. By balancing task-specific and contrastive objectives in the loss function during fine-tuning, we achieve competitive slide-level retrieval performance while maintaining classification accuracy. 
